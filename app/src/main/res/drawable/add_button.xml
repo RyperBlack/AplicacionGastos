@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fondo amarillo circular -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#e8ce29" /> <!-- Color amarillo -->
+            <size android:width="100dp" android:height="100dp" /> <!-- Tamaño del círculo -->
+        </shape>
+    </item>
+
+    <!-- Símbolo + blanco -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@android:color/white" /> <!-- El + en color blanco -->
+    </item>
+
+</layer-list>

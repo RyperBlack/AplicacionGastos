@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_start">
+
+    <fragment
+        android:id="@+id/nav_start"
+        android:name="com.example.tfg_aplicaciongastos.ui.start.StartFragment"
+        android:label="@string/menu_start"
+        tools:layout="@layout/fragment_start" />
+
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="com.example.tfg_aplicaciongastos.ui.category.CategoryFragment"
+        android:label="@string/menu_category"
+        tools:layout="@layout/fragment_category">
+
+        <!-- Acción para navegar de CategoryFragment a CreateCategoryFragment -->
+        <action
+            android:id="@+id/action_categoryFragment_to_createCategoryFragment"
+            app:destination="@id/nav_createCategory" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_graph"
+        android:name="com.example.tfg_aplicaciongastos.ui.graph.GraphFragment"
+        android:label="@string/menu_graphs"
+        tools:layout="@layout/fragment_graph" />
+
+    <fragment
+        android:id="@+id/nav_habitualPayments"
+        android:name="com.example.tfg_aplicaciongastos.ui.habitualPayments.HabitualPaymentsFragment"
+        android:label="@string/menu_habitualPayments"
+        tools:layout="@layout/fragment_habitual_payments" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.tfg_aplicaciongastos.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_createCategory"
+        android:name="com.example.tfg_aplicaciongastos.ui.category.CreateCategoryFragment"
+        android:label="@string/add_category"
+        tools:layout="@layout/fragment_create_category" />
+</navigation>
