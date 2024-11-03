@@ -30,20 +30,14 @@
         tools:layout="@layout/fragment_graph" />
 
     <fragment
-        android:id="@+id/nav_habitualPayments"
-        android:name="com.example.tfg_aplicaciongastos.ui.habitualPayments.HabitualPaymentsFragment"
-        android:label="@string/menu_habitualPayments"
-        tools:layout="@layout/fragment_habitual_payments" />
-
-    <fragment
-        android:id="@+id/nav_settings"
-        android:name="com.example.tfg_aplicaciongastos.ui.settings.SettingsFragment"
-        android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_settings" />
+        android:id="@+id/nav_account"
+        android:name="com.example.tfg_aplicaciongastos.ui.account.AccountFragment"
+        android:label="@string/menu_account"
+        tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/nav_createCategory"
-        android:name="com.example.tfg_aplicaciongastos.ui.category.CreateCategoryFragment"
+        android:name="com.example.tfg_aplicaciongastos.ui.category.createCategory.CreateCategoryFragment"
         android:label="@string/add_category"
         tools:layout="@layout/fragment_create_category" />
 </navigation>

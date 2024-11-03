@@ -50,7 +50,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list, parent, false);
             return new ViewHolderData(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_button, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_button_list, parent, false);
             return new ViewHolderAddButton(view);
         }
     }

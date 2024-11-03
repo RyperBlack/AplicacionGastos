@@ -1,9 +1,10 @@
-package com.example.tfg_aplicaciongastos;
+package com.example.tfg_aplicaciongastos.ui;
 
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.tfg_aplicaciongastos.R;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_start, R.id.nav_graph, R.id.nav_category, R.id.nav_habitualPayments)
+                R.id.nav_start, R.id.nav_graph, R.id.nav_account, R.id.nav_category)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

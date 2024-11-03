@@ -21,4 +21,6 @@
     <string name="name">Nombre</string>
     <string name="gastos">Gastos</string>
     <string name="ingresos">Ingresos</string>
+    <string name="menu_account">Cuentas</string>
+    <string name="total">Total</string>
 </resources>
