@@ -1,26 +1,38 @@
 package com.example.tfg_aplicaciongastos.ui.account.createAccount;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.tfg_aplicaciongastos.R;
 
-public class CreateAccount extends AppCompatActivity {
+public class CreateAccount extends Fragment {
+
+    private CreateAccountViewModel mViewModel;
+
+    public static CreateAccount newInstance() {
+        return new CreateAccount();
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_create_account);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_create_account, container, false);
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(CreateAccountViewModel.class);
+        // TODO: Use the ViewModel
+    }
+
 }

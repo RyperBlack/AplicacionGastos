@@ -24,6 +24,15 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     public AccountListAdapter(ArrayList<Account> accountList) {
 
         this.AccountList = accountList;
+public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.ViewHolderData> {
+
+    ArrayList<Account> AccountList;
+    OnAddAccountClickListener addAccountClickListener;
+
+    public AccountListAdapter(ArrayList<Account> accountList,  OnAddAccountClickListener addAccountClickListener) {
+
+        this.AccountList = accountList;
+        this.addAccountClickListener = addAccountClickListener;
     }
 
     @NonNull
@@ -84,5 +93,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
             accountName = itemView.findViewById(R.id.accountName);
 
         }
+    }
+
+    public interface OnAddAccountClickListener {
+        void onAddAccountClick();
     }
 }

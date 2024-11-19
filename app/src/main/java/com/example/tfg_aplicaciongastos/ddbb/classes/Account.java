@@ -3,14 +3,13 @@ package com.example.tfg_aplicaciongastos.ddbb.classes;
 public class Account {
 
     int id;
-    String name, hexCode;
+    String name;
     double total;
 
-    public Account(int id, double total, String name, String hexCode) {
+    public Account(int id, String name, double total) {
         this.id = id;
         this.total = total;
         this.name = name;
-        this.hexCode = hexCode;
     }
 
     public int getId() {
@@ -35,11 +34,5 @@ public class Account {
 
     public void setTotal(double total) {
         this.total = total;
-    }
-
-    public String getHexCode(String hexCode) { return hexCode; }
-
-    public void setHexCode(String hexCode) {
-        this.hexCode = hexCode;
     }
 }
