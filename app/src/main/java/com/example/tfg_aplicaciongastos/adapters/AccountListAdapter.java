@@ -14,22 +14,13 @@ import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
 
 import java.util.ArrayList;
 
-public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.ViewHolderData> implements View.OnClickListener, View.OnLongClickListener {
-
-    ArrayList<Account> AccountList;
-
-    private View.OnClickListener listener;
-    private View.OnLongClickListener longlistener;
-
-    public AccountListAdapter(ArrayList<Account> accountList) {
-
-        this.AccountList = accountList;
 public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.ViewHolderData> {
 
     ArrayList<Account> AccountList;
     OnAddAccountClickListener addAccountClickListener;
 
-    public AccountListAdapter(ArrayList<Account> accountList,  OnAddAccountClickListener addAccountClickListener) {
+
+    public AccountListAdapter(ArrayList<Account> accountList, OnAddAccountClickListener addAccountClickListener) {
 
         this.AccountList = accountList;
         this.addAccountClickListener = addAccountClickListener;
@@ -39,9 +30,6 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     @Override
     public ViewHolderData onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         @SuppressLint("InflateParams") View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.account_list, null, false);
-
-        view.setOnClickListener(this);
-        view.setOnLongClickListener(this);
 
         return new ViewHolderData(view);
     }
@@ -54,35 +42,6 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     @Override
     public int getItemCount() {
         return AccountList.size();
-    }
-
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (listener != null) {
-            listener.onClick(view);
-        }
-    }
-
-    public void setOnLongClickListener(View.OnLongClickListener longlistener) {
-        this.longlistener = longlistener;
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        if (longlistener != null) {
-            longlistener.onLongClick(v);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onLongClickUseDefaultHapticFeedback(@NonNull View v) {
-        return View.OnLongClickListener.super.onLongClickUseDefaultHapticFeedback(v);
     }
 
     public static class ViewHolderData extends RecyclerView.ViewHolder {

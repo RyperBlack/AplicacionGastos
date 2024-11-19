@@ -21,7 +21,6 @@ import com.example.tfg_aplicaciongastos.databinding.FragmentCategoryBinding;
 import com.example.tfg_aplicaciongastos.ddbb.classes.Categories;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountContract;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
-import com.example.tfg_aplicaciongastos.ui.category.CategoryViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfg_aplicaciongastos.R;
 import com.example.tfg_aplicaciongastos.adapters.AccountListAdapter;
+import com.example.tfg_aplicaciongastos.databinding.FragmentAccountBinding;
 import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountContract;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
@@ -25,16 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AccountFragment extends Fragment{
+public class AccountFragment extends Fragment {
     private FragmentAccountBinding binding;
     private ArrayList<Account> accountsDataList;
     private RecyclerView accountsRecycler;
     private AccountDBHelper dbHelper;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        AccountViewModel accountViewModel =
-                new ViewModelProvider(this).get(AccountViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        AccountViewModel accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
         binding = FragmentAccountBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -80,7 +79,7 @@ public class AccountFragment extends Fragment{
             accountsDataList.add(new Account(idSelected.get(i), nameSelected.get(i), totalSelected.get(i)));
         }
 
-        accountsDataList.add(new Account(1,"prueba",100.16));
+        accountsDataList.add(new Account(1, "prueba", 100.16));
         // Configuramos el adaptador del RecyclerView
         AccountListAdapter adapter = new AccountListAdapter(accountsDataList, new AccountListAdapter.OnAddAccountClickListener() {
             @Override

@@ -1,6 +1,8 @@
 package com.example.tfg_aplicaciongastos.ddbb.helpers;
 
-import static com.example.tfg_aplicaciongastos.ddbb.helpers.AccountContract.*;
+import static com.example.tfg_aplicaciongastos.ddbb.helpers.AccountContract.accountEntry;
+import static com.example.tfg_aplicaciongastos.ddbb.helpers.AccountContract.categoryEntry;
+import static com.example.tfg_aplicaciongastos.ddbb.helpers.AccountContract.exchangesEntry;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
