@@ -17,5 +17,11 @@ public class CreateAccountViewModel extends ViewModel {
         this.dbHelper = dbHelper;
     }
 
+    public void addAccount(Account account) {
+        executorService.execute(() -> dbHelper.insertAccount(account));
+    }
 
+    public void updateAccount(Account account) {
+        executorService.execute(() -> dbHelper.updateAccount(account));
+    }
 }

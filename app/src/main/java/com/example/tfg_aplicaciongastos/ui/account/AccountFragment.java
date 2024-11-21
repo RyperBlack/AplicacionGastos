@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,24 +31,31 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAccountBinding.inflate(inflater, container, false);
 
-        // Inicializar el ViewModel
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
-        // Configurar RecyclerView
+        // Configurar el RecyclerView
         binding.AccountRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new AccountListAdapter(new AccountListAdapter.OnAccountInteractionListener() {
             @Override
             public void onEditAccount(Account account) {
                 navigateToCreateAccount(account);
             }
+
+            @Override
+            public void onDeleteAccount(Account account) {
+                accountViewModel.deleteAccount(account);
+                Toast.makeText(requireContext(), R.string.account_deleted, Toast.LENGTH_SHORT).show();
+            }
         });
         binding.AccountRecycler.setAdapter(adapter);
 
-        // Configurar el FAB para navegar al fragmento de creación vacío
+        // Configurar FAB
         binding.fabAddAccount.setOnClickListener(v -> navigateToCreateAccount(null));
 
-        // Observar cambios en las cuentas
-        accountViewModel.getAccounts().observe(getViewLifecycleOwner(), this::updateRecyclerView);
+        // Observar cambios en la lista de cuentas
+        accountViewModel.getAccounts().observe(getViewLifecycleOwner(), accounts -> {
+            adapter.setAccounts(accounts); // Actualizar el adaptador
+        });
 
         return binding.getRoot();
     }
@@ -65,6 +73,12 @@ public class AccountFragment extends Fragment {
             args.putDouble("account_total", account.getTotal());
         }
         navController.navigate(R.id.action_accountFragment_to_createAccountFragment, args);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        accountViewModel.loadAccounts();
     }
 
     @Override

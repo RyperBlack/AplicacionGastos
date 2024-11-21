@@ -35,7 +35,7 @@
         tools:layout="@layout/fragment_account">
         <action
             android:id="@+id/action_accountFragment_to_createAccountFragment"
-            app:destination="@id/nav_createCategory" />
+            app:destination="@id/nav_createAccount" />
     </fragment>
 
     <fragment

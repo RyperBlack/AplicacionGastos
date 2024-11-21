@@ -4,11 +4,14 @@ import static com.example.tfg_aplicaciongastos.ddbb.helpers.AccountContract.acco
 import static com.example.tfg_aplicaciongastos.ddbb.helpers.AccountContract.categoryEntry;
 import static com.example.tfg_aplicaciongastos.ddbb.helpers.AccountContract.exchangesEntry;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
 
 public class AccountDBHelper extends SQLiteOpenHelper {
 
@@ -59,6 +62,24 @@ public class AccountDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_ACCOUNTS);
         db.execSQL(SQL_CREATE_TABLE_CATEGORIES);
         db.execSQL(SQL_CREATE_TABLE_EXCHANGES);
+    }
+
+    public void insertAccount(Account account) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", account.getName());
+        values.put("total", account.getTotal());
+        db.insert("accounts", null, values);
+        db.close();
+    }
+
+    public void updateAccount(Account account) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", account.getName());
+        values.put("total", account.getTotal());
+        db.update("accounts", values, "_id = ?", new String[]{String.valueOf(account.getId())});
+        db.close();
     }
 
     @Override

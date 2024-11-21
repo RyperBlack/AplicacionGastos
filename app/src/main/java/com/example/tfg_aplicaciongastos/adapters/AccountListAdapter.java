@@ -36,6 +36,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
 
         // Configurar clic en el botón "Editar"
         holder.binding.editAccountButton.setOnClickListener(v -> interactionListener.onEditAccount(account));
+
+        // Configurar clic en el botón "Eliminar"
+        holder.binding.deleteAccountButton.setOnClickListener(v -> interactionListener.onDeleteAccount(account));
     }
 
     @Override
@@ -46,7 +49,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     public void setAccounts(List<Account> accounts) {
         accountList.clear();
         accountList.addAll(accounts);
-        notifyDataSetChanged();
+        notifyDataSetChanged(); // Notificar cambios al RecyclerView
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,7 +61,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         }
     }
 
+
     public interface OnAccountInteractionListener {
         void onEditAccount(Account account);
+        void onDeleteAccount(Account account); // Nuevo método
     }
 }

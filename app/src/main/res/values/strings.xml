@@ -29,5 +29,7 @@
     <string name="account_name">Nombre de la cuenta:</string>
     <string name="add_Account">Crear cuenta</string>
     <string name="error_empty_fields">Por favor, llena todos los campos.</string>
-    <string name="account_saved">Cuenta guardada correctamente.</string>
+    <string name="account_created">Cuenta creada con éxito</string>
+    <string name="account_updated">Cuenta actualizada con éxito</string>
+    <string name="account_deleted">Cuenta eliminada con éxito</string>
 </resources>
