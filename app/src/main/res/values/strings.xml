@@ -23,4 +23,11 @@
     <string name="ingresos">Ingresos</string>
     <string name="menu_account">Cuentas</string>
     <string name="total">Total</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
+    <string name="transfer">Transferencia</string>
+    <string name="account_name">Nombre de la cuenta:</string>
+    <string name="add_Account">Crear cuenta</string>
+    <string name="error_empty_fields">Por favor, llena todos los campos.</string>
+    <string name="account_saved">Cuenta guardada correctamente.</string>
 </resources>
