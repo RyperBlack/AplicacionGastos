@@ -1,5 +1,6 @@
 package com.example.tfg_aplicaciongastos.ui.account;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +20,6 @@ import com.example.tfg_aplicaciongastos.adapters.AccountListAdapter;
 import com.example.tfg_aplicaciongastos.databinding.FragmentAccountBinding;
 import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
 
-import java.util.List;
-
 public class AccountFragment extends Fragment {
 
     private FragmentAccountBinding binding;
@@ -30,10 +29,8 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAccountBinding.inflate(inflater, container, false);
-
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
-        // Configurar el RecyclerView
         binding.AccountRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new AccountListAdapter(new AccountListAdapter.OnAccountInteractionListener() {
             @Override
@@ -43,26 +40,35 @@ public class AccountFragment extends Fragment {
 
             @Override
             public void onDeleteAccount(Account account) {
-                accountViewModel.deleteAccount(account);
-                Toast.makeText(requireContext(), R.string.account_deleted, Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.confirm_delete_account_title)
+                        .setMessage(R.string.confirm_delete_account_message)
+                        .setPositiveButton(R.string.delete, (dialog, which) -> {
+                            accountViewModel.deleteAccount(account);
+                            Toast.makeText(requireContext(), R.string.account_deleted, Toast.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                            dialog.dismiss();
+                        })
+                        .show();
+            }
+
+            @Override
+            public void onAccountSelected(Account account) {
+                accountViewModel.setSelectedAccount(account);
             }
         });
         binding.AccountRecycler.setAdapter(adapter);
 
-        // Configurar FAB
         binding.fabAddAccount.setOnClickListener(v -> navigateToCreateAccount(null));
 
-        // Observar cambios en la lista de cuentas
         accountViewModel.getAccounts().observe(getViewLifecycleOwner(), accounts -> {
-            adapter.setAccounts(accounts); // Actualizar el adaptador
+            adapter.setAccounts(accounts);
         });
 
         return binding.getRoot();
     }
 
-    private void updateRecyclerView(List<Account> accounts) {
-        adapter.setAccounts(accounts);
-    }
 
     private void navigateToCreateAccount(@Nullable Account account) {
         NavController navController = Navigation.findNavController(binding.getRoot());

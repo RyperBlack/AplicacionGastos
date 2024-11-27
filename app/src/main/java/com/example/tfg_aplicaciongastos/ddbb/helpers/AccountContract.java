@@ -20,8 +20,8 @@ public class AccountContract {
     }
 
     public static abstract class categoryEntry implements BaseColumns {
-        public static final String TABLE_NAME = "Categories";
-        public static final String ACCOUNT_ID = "Account ID";
+        public static final String TABLE_NAME = "Category";
+        public static final String TYPE = "Type";
         public static final String NAME = "Name";
         public static final String HEXCODE = "HexCode";
     }

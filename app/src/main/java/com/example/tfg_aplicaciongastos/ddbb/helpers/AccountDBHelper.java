@@ -12,13 +12,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
+import com.example.tfg_aplicaciongastos.ddbb.classes.Category;
 
 public class AccountDBHelper extends SQLiteOpenHelper {
 
     private final static String DATABASE_NAME = "accounts.db";
     private final static int DATABASE_VERSION = 1;
 
-    // Sentencia SQL para crear la tabla exchanges
     private final static String SQL_CREATE_TABLE_EXCHANGES =
             "CREATE TABLE " + exchangesEntry.TABLE_NAME + " (" +
                     exchangesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -29,8 +29,6 @@ public class AccountDBHelper extends SQLiteOpenHelper {
                     exchangesEntry.QUANTITY + " TEXT NOT NULL " +
                     ");";
 
-
-    // Sentencia SQL para crear la tabla accounts
     private final static String SQL_CREATE_TABLE_ACCOUNTS =
             "CREATE TABLE " + accountEntry.TABLE_NAME + " (" +
                     accountEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -38,11 +36,10 @@ public class AccountDBHelper extends SQLiteOpenHelper {
                     accountEntry.TOTAL + " TEXT NOT NULL" +
                     ");";
 
-    // Sentencia SQL para crear la tabla categories
     private final static String SQL_CREATE_TABLE_CATEGORIES =
             "CREATE TABLE " + categoryEntry.TABLE_NAME + " (" +
                     categoryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    categoryEntry.ACCOUNT_ID + "INTEGER," +
+                    categoryEntry.TYPE + "BOOLEAN, " +
                     categoryEntry.NAME + " TEXT NOT NULL, " +
                     categoryEntry.HEXCODE + " TEXT NOT NULL " +
                     ");";
@@ -58,7 +55,6 @@ public class AccountDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Ejecutar las sentencias SQL para crear las tablas
         db.execSQL(SQL_CREATE_TABLE_ACCOUNTS);
         db.execSQL(SQL_CREATE_TABLE_CATEGORIES);
         db.execSQL(SQL_CREATE_TABLE_EXCHANGES);
@@ -84,5 +80,12 @@ public class AccountDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
+
+    public void insertCategory(Category category) {
+    }
+
+    public void updateCategory(Category category) {
+
     }
 }

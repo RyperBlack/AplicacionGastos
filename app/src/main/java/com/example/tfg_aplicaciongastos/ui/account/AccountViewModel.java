@@ -1,7 +1,6 @@
 package com.example.tfg_aplicaciongastos.ui.account;
 
 import android.app.Application;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -20,13 +19,23 @@ public class AccountViewModel extends AndroidViewModel {
 
     private final AccountDBHelper dbHelper;
     private final MutableLiveData<List<Account>> accountsLiveData;
+    private final MutableLiveData<Account> selectedAccountLiveData = new MutableLiveData<>();
 
     public AccountViewModel(@NonNull Application application) {
         super(application);
         dbHelper = new AccountDBHelper(application);
         accountsLiveData = new MutableLiveData<>();
-        loadAccounts(); // Carga inicial
+        loadAccounts();
     }
+
+    public void setSelectedAccount(Account account) {
+        selectedAccountLiveData.setValue(account);
+    }
+
+    public LiveData<Account> getSelectedAccount() {
+        return selectedAccountLiveData;
+    }
+
 
     public void loadAccounts() {
         List<Account> accounts = new ArrayList<>();
@@ -48,33 +57,11 @@ public class AccountViewModel extends AndroidViewModel {
         cursor.close();
         db.close();
 
-        accountsLiveData.postValue(accounts); // Notificar cambios
+        accountsLiveData.postValue(accounts);
     }
 
     public LiveData<List<Account>> getAccounts() {
         return accountsLiveData;
-    }
-
-    public void addAccount(Account account) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("name", account.getName());
-        values.put("total", account.getTotal());
-        db.insert("accounts", null, values);
-        db.close();
-
-        loadAccounts(); // Recargar cuentas
-    }
-
-    public void updateAccount(Account account) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("name", account.getName());
-        values.put("total", account.getTotal());
-        db.update("accounts", values, "_id = ?", new String[]{String.valueOf(account.getId())});
-        db.close();
-
-        loadAccounts(); // Recargar cuentas
     }
 
     public void deleteAccount(Account account) {
@@ -82,6 +69,6 @@ public class AccountViewModel extends AndroidViewModel {
         db.delete("accounts", "_id = ?", new String[]{String.valueOf(account.getId())});
         db.close();
 
-        loadAccounts(); // Recargar cuentas
+        loadAccounts();
     }
 }

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
-import com.example.tfg_aplicaciongastos.ui.account.AccountViewModel;
 
 import java.util.concurrent.Executor;
 

@@ -1,13 +1,14 @@
 package com.example.tfg_aplicaciongastos.ddbb.classes;
 
-public class Categories {
+public class Category {
 
-    int id, accountId;
+    int id;
+    boolean type;
     String name, hexCode;
 
-    public Categories(int id, int accountId, String name, String hexCode) {
+    public Category(int id,boolean type, String name, String hexCode) {
         this.id = id;
-        this.accountId = accountId;
+        this.type = type;
         this.name = name;
         this.hexCode = hexCode;
     }
@@ -20,14 +21,13 @@ public class Categories {
         this.id = id;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public boolean getType(){
+        return type;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setType(boolean type){
+        this.type = type;
     }
-
     public String getHexCode() {
         return hexCode;
     }

@@ -36,28 +36,22 @@ public class CreateAccount extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Obtener instancia de AccountDBHelper
         AccountDBHelper dbHelper = new AccountDBHelper(requireContext());
-        // Crear un Executor para operaciones en segundo plano
-        Executor executor = Runnable::run; // Puedes usar un Executor más sofisticado como Executors.newSingleThreadExecutor()
+        Executor executor = Runnable::run;
 
-        // Usar la Factory personalizada para inicializar el ViewModel
         CreateAccountViewModelFactory factory = new CreateAccountViewModelFactory(executor, dbHelper);
         mViewModel = new ViewModelProvider(this, factory).get(CreateAccountViewModel.class);
 
-        // Obtener argumentos
         Bundle args = getArguments();
         if (args != null) {
             accountId = args.getInt("account_id", -1);
             String accountName = args.getString("account_name", "");
             double accountTotal = args.getDouble("account_total", 0.0);
 
-            // Rellenar campos si hay datos
             binding.accountNameEditText.setText(accountName);
             binding.accountTotalEditText.setText(String.valueOf(accountTotal));
         }
 
-        // Configurar el botón de creación/edición
         binding.createAccountButton.setOnClickListener(v -> {
             String name = binding.accountNameEditText.getText().toString();
             String totalText = binding.accountTotalEditText.getText().toString();
@@ -71,14 +65,14 @@ public class CreateAccount extends Fragment {
             Account account = new Account(accountId, name, total);
 
             if (accountId == -1) {
-                mViewModel.addAccount(account); // Agregar cuenta
+                mViewModel.addAccount(account);
                 Toast.makeText(requireContext(), R.string.account_created, Toast.LENGTH_SHORT).show();
             } else {
-                mViewModel.updateAccount(account); // Editar cuenta
+                mViewModel.updateAccount(account);
                 Toast.makeText(requireContext(), R.string.account_updated, Toast.LENGTH_SHORT).show();
             }
 
-            requireActivity().onBackPressed(); // Volver atrás
+            requireActivity().onBackPressed();
         });
     }
 
