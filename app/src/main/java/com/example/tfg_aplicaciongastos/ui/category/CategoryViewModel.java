@@ -24,16 +24,16 @@ public class CategoryViewModel extends AndroidViewModel {
         super(application);
         dbHelper = new AccountDBHelper(application);
         categoriesLiveData = new MutableLiveData<>();
-        loadCategories();
+
     }
 
-    public void loadFirstCategoryList() {
+    public void loadCategoryList(int type) {
         List<Category> categories = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(
                 "category",
                 new String[]{"_id", "type", "name", "hexcode"},
-                "type = ?", new String[]{"1"}, null, null,
+                "type = ?", new String[]{String.valueOf(type)}, null, null,
                 "_id DESC"
         );
 
@@ -51,63 +51,18 @@ public class CategoryViewModel extends AndroidViewModel {
         categoriesLiveData.postValue(categories);
     }
 
-    public void loadSecondCategoryList() {
-        List<Category> categories = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query(
-                "category",
-                new String[]{"_id", "type", "name", "hexcode"},
-                "type = ?", new String[]{"0"}, null, null,
-                "_id DESC"
-        );
-
-        while (cursor.moveToNext()) {
-            categories.add(new Category(
-                    cursor.getInt(0),
-                    cursor.getInt(1),
-                    cursor.getString(2),
-                    cursor.getString(3)
-            ));
-        }
-        cursor.close();
-        db.close();
-
-        categoriesLiveData.postValue(categories);
-    }
-
-    public void loadCategories() {
-        List<Category> categories = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query(
-                "category",
-                new String[]{"_id","type", "name", "hexcode"},
-                null, null, null, null,
-                "_id DESC"
-        );
-
-        while (cursor.moveToNext()) {
-            categories.add(new Category(
-                    cursor.getInt(0),
-                    cursor.getInt(1),
-                    cursor.getString(2),
-                    cursor.getString(3)
-            ));
-        }
-        cursor.close();
-        db.close();
-
-        categoriesLiveData.postValue(categories);
-    }
 
     public LiveData<List<Category>> getCategories() {
         return categoriesLiveData;
     }
 
     public void deleteCategory(Category category) {
+        int type = category.getType();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
         db.delete("category", "_id = ?", new String[]{String.valueOf(category.getId())});
         db.close();
 
-        loadCategories();
+        loadCategoryList(type);
     }
 }

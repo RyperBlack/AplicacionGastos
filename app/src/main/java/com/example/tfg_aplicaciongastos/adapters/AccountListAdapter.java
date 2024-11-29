@@ -33,7 +33,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         this.interactionListener = interactionListener;
     }
 
-    /** @noinspection ClassEscapesDefinedScope*/
+    /**
+     * @noinspection ClassEscapesDefinedScope
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,7 +43,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         return new ViewHolder(binding);
     }
 
-    /** @noinspection ClassEscapesDefinedScope*/
+    /**
+     * @noinspection ClassEscapesDefinedScope
+     */
     @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -54,9 +58,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         holder.binding.getRoot().setOnClickListener(v -> {
             int oldPosition = selectedPosition;
             selectedPosition = holder.getAdapterPosition();
-            notifyItemChanged(oldPosition); // Update old item
-            notifyItemChanged(selectedPosition); // Update new item
-            interactionListener.onAccountSelected(account); // Notify selection change
+            notifyItemChanged(oldPosition);
+            notifyItemChanged(selectedPosition);
+            interactionListener.onAccountSelected(account);
         });
 
         holder.binding.getRoot().setOnLongClickListener(v -> {
@@ -65,7 +69,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         });
     }
 
-    /** @noinspection CallToPrintStackTrace*/
+    /**
+     * @noinspection CallToPrintStackTrace
+     */
     private void showPopupMenu(View view, Account account) {
         PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
 
@@ -116,6 +122,14 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         notifyDataSetChanged();
     }
 
+    public interface OnAccountInteractionListener {
+        void onEditAccount(Account account);
+
+        void onDeleteAccount(Account account);
+
+        void onAccountSelected(Account account);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final AccountListBinding binding;
 
@@ -123,11 +137,5 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
             super(binding.getRoot());
             this.binding = binding;
         }
-    }
-
-    public interface OnAccountInteractionListener {
-        void onEditAccount(Account account);
-        void onDeleteAccount(Account account);
-        void onAccountSelected(Account account);
     }
 }

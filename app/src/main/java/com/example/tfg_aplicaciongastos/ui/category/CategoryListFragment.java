@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+
 import com.example.tfg_aplicaciongastos.R;
 import com.example.tfg_aplicaciongastos.adapters.CategoryListAdapter;
 import com.example.tfg_aplicaciongastos.databinding.FragmentCategoryBinding;
@@ -62,9 +64,9 @@ public class CategoryListFragment extends Fragment {
         binding.CategoryRecycler.setAdapter(adapter);
 
         if (position == 0) {
-            categoryViewModel.loadFirstCategoryList();
+            categoryViewModel.loadCategoryList(1);
         } else {
-            categoryViewModel.loadSecondCategoryList();
+            categoryViewModel.loadCategoryList(0);
         }
 
         categoryViewModel.getCategories().observe(getViewLifecycleOwner(), categories -> adapter.setCategories(categories));

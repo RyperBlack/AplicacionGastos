@@ -102,6 +102,14 @@ public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 .show();
     }
 
+    public interface OnCategoryInteractionListener {
+        void onEditCategory(Category category);
+
+        void onCreateCategory();
+
+        void onDeleteCategory(Category category);
+    }
+
     static class CategoryViewHolder extends RecyclerView.ViewHolder {
         private final CategoryListBinding binding;
 
@@ -115,13 +123,5 @@ public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public CreateCategoryViewHolder(@NonNull View itemView) {
             super(itemView);
         }
-    }
-
-    public interface OnCategoryInteractionListener {
-        void onEditCategory(Category category);
-
-        void onCreateCategory();
-
-        void onDeleteCategory(Category category);
     }
 }

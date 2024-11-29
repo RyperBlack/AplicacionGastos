@@ -8,7 +8,9 @@ import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
 
 import java.util.concurrent.Executor;
 
-/** @noinspection unchecked*/
+/**
+ * @noinspection unchecked
+ */
 public class CreateAccountViewModelFactory implements ViewModelProvider.Factory {
     private final Executor executorService;
     private final AccountDBHelper dbHelper;

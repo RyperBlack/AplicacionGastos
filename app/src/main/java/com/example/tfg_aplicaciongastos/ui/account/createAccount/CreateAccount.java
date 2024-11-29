@@ -19,7 +19,9 @@ import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
 
 import java.util.concurrent.Executor;
 
-/** @noinspection ALL*/
+/**
+ * @noinspection ALL
+ */
 public class CreateAccount extends Fragment {
 
     private ActivityCreateAccountBinding binding;
@@ -32,7 +34,9 @@ public class CreateAccount extends Fragment {
         return binding.getRoot();
     }
 
-    /** @noinspection deprecation*/
+    /**
+     * @noinspection deprecation
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

@@ -20,13 +20,14 @@ public class Category {
         this.id = id;
     }
 
-    public int getType(){
+    public int getType() {
         return type;
     }
 
-    public void setType(int type){
+    public void setType(int type) {
         this.type = type;
     }
+
     public String getHexCode() {
         return hexCode;
     }

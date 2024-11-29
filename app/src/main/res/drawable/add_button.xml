@@ -5,7 +5,9 @@
     <item>
         <shape android:shape="oval">
             <solid android:color="#e8ce29" /> <!-- Color amarillo -->
-            <size android:width="100dp" android:height="100dp" /> <!-- Tamaño del círculo -->
+            <size
+                android:width="100dp"
+                android:height="100dp" /> <!-- Tamaño del círculo -->
         </shape>
     </item>
 

@@ -28,14 +28,13 @@ public class AccountViewModel extends AndroidViewModel {
         loadAccounts();
     }
 
-    public void setSelectedAccount(Account account) {
-        selectedAccountLiveData.setValue(account);
-    }
-
     public LiveData<Account> getSelectedAccount() {
         return selectedAccountLiveData;
     }
 
+    public void setSelectedAccount(Account account) {
+        selectedAccountLiveData.setValue(account);
+    }
 
     public void loadAccounts() {
         List<Account> accounts = new ArrayList<>();

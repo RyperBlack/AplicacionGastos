@@ -34,7 +34,9 @@ public class CreateCategoryFragment extends Fragment {
         return binding.getRoot();
     }
 
-    /** @noinspection deprecation*/
+    /**
+     * @noinspection deprecation
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
