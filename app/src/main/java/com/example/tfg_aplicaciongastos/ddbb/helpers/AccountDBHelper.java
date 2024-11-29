@@ -39,7 +39,7 @@ public class AccountDBHelper extends SQLiteOpenHelper {
     private final static String SQL_CREATE_TABLE_CATEGORIES =
             "CREATE TABLE " + categoryEntry.TABLE_NAME + " (" +
                     categoryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    categoryEntry.TYPE + "BOOLEAN, " +
+                    categoryEntry.TYPE + " INTEGER, " +
                     categoryEntry.NAME + " TEXT NOT NULL, " +
                     categoryEntry.HEXCODE + " TEXT NOT NULL " +
                     ");";
@@ -83,9 +83,23 @@ public class AccountDBHelper extends SQLiteOpenHelper {
     }
 
     public void insertCategory(Category category) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("type", category.getType());
+        values.put("name", category.getName());
+        values.put("hexcode", category.getHexCode());
+        db.insert("category", null, values);
+        db.close();
     }
 
     public void updateCategory(Category category) {
+        SQLiteDatabase db = getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put("type", category.getType());
+        values.put("name", category.getName());
+        values.put("hexcode", category.getHexCode());
+        db.update("category", values, "_id = ?", new String[]{String.valueOf(category.getId())});
     }
 }

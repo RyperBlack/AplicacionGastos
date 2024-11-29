@@ -19,6 +19,7 @@ import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
 
 import java.util.concurrent.Executor;
 
+/** @noinspection ALL*/
 public class CreateAccount extends Fragment {
 
     private ActivityCreateAccountBinding binding;
@@ -26,12 +27,12 @@ public class CreateAccount extends Fragment {
     private int accountId = -1;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = ActivityCreateAccountBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
+    /** @noinspection deprecation*/
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

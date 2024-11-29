@@ -1,6 +1,6 @@
 package com.example.tfg_aplicaciongastos.adapters;
 
-import android.os.Build;
+import android.annotation.SuppressLint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.ViewHolder> {
 
     private final List<Account> accountList = new ArrayList<>();
@@ -32,6 +33,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         this.interactionListener = interactionListener;
     }
 
+    /** @noinspection ClassEscapesDefinedScope*/
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,6 +41,8 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         return new ViewHolder(binding);
     }
 
+    /** @noinspection ClassEscapesDefinedScope*/
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Account account = accountList.get(position);
@@ -61,6 +65,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         });
     }
 
+    /** @noinspection CallToPrintStackTrace*/
     private void showPopupMenu(View view, Account account) {
         PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
 
@@ -68,18 +73,17 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         inflater.inflate(R.menu.account_context_menu, popupMenu.getMenu());
 
         try {
-            Field mFieldPopup = popupMenu.getClass().getDeclaredField("mPopup");
+            @SuppressLint("DiscouragedPrivateApi") Field mFieldPopup = popupMenu.getClass().getDeclaredField("mPopup");
             mFieldPopup.setAccessible(true);
             Object mPopup = mFieldPopup.get(popupMenu);
+            assert mPopup != null;
             mPopup.getClass()
                     .getDeclaredMethod("setForceShowIcon", boolean.class)
                     .invoke(mPopup, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            popupMenu.setGravity(Gravity.END); // Aparece alineado a la derecha
-        }
+        popupMenu.setGravity(Gravity.END);
         popupMenu.setOnMenuItemClickListener(item -> handleMenuItemClick(item, account));
 
         popupMenu.show();
@@ -105,6 +109,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         return accountList.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setAccounts(List<Account> accounts) {
         accountList.clear();
         accountList.addAll(accounts);

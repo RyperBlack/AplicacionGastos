@@ -1,6 +1,8 @@
 package com.example.tfg_aplicaciongastos.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,13 +57,16 @@ public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             CategoryViewHolder categoryHolder = (CategoryViewHolder) holder;
             Category category = categoryList.get(position);
 
-            // Configuración del texto y eventos
             categoryHolder.binding.NameText.setText(category.getName());
-            categoryHolder.binding.getRoot().setOnClickListener(v ->
-                    interactionListener.onEditCategory(category)
-            );
 
-            // Mantener pulsado para mostrar el AlertDialog
+            try {
+                int color = Color.parseColor(category.getHexCode());
+                categoryHolder.binding.colorImageView.setBackgroundColor(color);
+            } catch (IllegalArgumentException e) {
+                categoryHolder.binding.colorImageView.setBackgroundColor(Color.GRAY);
+            }
+
+            categoryHolder.binding.getRoot().setOnClickListener(v -> interactionListener.onEditCategory(category));
             categoryHolder.binding.getRoot().setOnLongClickListener(v -> {
                 showDeleteConfirmationDialog(v.getContext(), category);
                 return true;
@@ -72,20 +77,19 @@ public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+
     @Override
     public int getItemCount() {
-        return categoryList.size() + 1; // +1 para el botón de "Añadir Categoría"
+        return categoryList.size() + 1;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setCategories(List<Category> categories) {
         categoryList.clear();
         categoryList.addAll(categories);
         notifyDataSetChanged();
     }
 
-    /**
-     * Mostrar un diálogo de confirmación para eliminar la categoría.
-     */
     private void showDeleteConfirmationDialog(Context context, Category category) {
         new AlertDialog.Builder(context)
                 .setTitle(R.string.confirm_delete_category_title)
@@ -98,7 +102,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 .show();
     }
 
-    // ViewHolder para categorías existentes
     static class CategoryViewHolder extends RecyclerView.ViewHolder {
         private final CategoryListBinding binding;
 
@@ -108,14 +111,12 @@ public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    // ViewHolder para el botón "Añadir Categoría"
     static class CreateCategoryViewHolder extends RecyclerView.ViewHolder {
         public CreateCategoryViewHolder(@NonNull View itemView) {
             super(itemView);
         }
     }
 
-    // Interfaz para manejar interacciones
     public interface OnCategoryInteractionListener {
         void onEditCategory(Category category);
 

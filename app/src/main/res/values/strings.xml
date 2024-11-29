@@ -40,4 +40,5 @@
     <string name="category_deleted">Categoría eliminada</string>
     <string name="category_updated">Categoria actualizada</string>
     <string name="category_created">Categoria creada</string>
+    <string name="category_name">Nombre Categoria</string>
 </resources>

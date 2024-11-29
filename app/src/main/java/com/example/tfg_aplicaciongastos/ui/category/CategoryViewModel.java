@@ -8,9 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
 import com.example.tfg_aplicaciongastos.ddbb.classes.Category;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
 
@@ -29,12 +27,60 @@ public class CategoryViewModel extends AndroidViewModel {
         loadCategories();
     }
 
+    public void loadFirstCategoryList() {
+        List<Category> categories = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(
+                "category",
+                new String[]{"_id", "type", "name", "hexcode"},
+                "type = ?", new String[]{"1"}, null, null,
+                "_id DESC"
+        );
+
+        while (cursor.moveToNext()) {
+            categories.add(new Category(
+                    cursor.getInt(0),
+                    cursor.getInt(1),
+                    cursor.getString(2),
+                    cursor.getString(3)
+            ));
+        }
+        cursor.close();
+        db.close();
+
+        categoriesLiveData.postValue(categories);
+    }
+
+    public void loadSecondCategoryList() {
+        List<Category> categories = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(
+                "category",
+                new String[]{"_id", "type", "name", "hexcode"},
+                "type = ?", new String[]{"0"}, null, null,
+                "_id DESC"
+        );
+
+        while (cursor.moveToNext()) {
+            categories.add(new Category(
+                    cursor.getInt(0),
+                    cursor.getInt(1),
+                    cursor.getString(2),
+                    cursor.getString(3)
+            ));
+        }
+        cursor.close();
+        db.close();
+
+        categoriesLiveData.postValue(categories);
+    }
+
     public void loadCategories() {
         List<Category> categories = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(
-                "categories",
-                new String[]{"_id","account Id", "name", "hexcode"},
+                "category",
+                new String[]{"_id","type", "name", "hexcode"},
                 null, null, null, null,
                 "_id DESC"
         );
@@ -42,8 +88,9 @@ public class CategoryViewModel extends AndroidViewModel {
         while (cursor.moveToNext()) {
             categories.add(new Category(
                     cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2)
+                    cursor.getInt(1),
+                    cursor.getString(2),
+                    cursor.getString(3)
             ));
         }
         cursor.close();

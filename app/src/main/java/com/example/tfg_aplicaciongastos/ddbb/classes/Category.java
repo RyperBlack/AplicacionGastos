@@ -2,11 +2,10 @@ package com.example.tfg_aplicaciongastos.ddbb.classes;
 
 public class Category {
 
-    int id;
-    boolean type;
+    int id, type;
     String name, hexCode;
 
-    public Category(int id,boolean type, String name, String hexCode) {
+    public Category(int id, int type, String name, String hexCode) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -21,11 +20,11 @@ public class Category {
         this.id = id;
     }
 
-    public boolean getType(){
+    public int getType(){
         return type;
     }
 
-    public void setType(boolean type){
+    public void setType(int type){
         this.type = type;
     }
     public String getHexCode() {

@@ -44,7 +44,7 @@ public class AccountViewModel extends AndroidViewModel {
                 "accounts", // Tabla
                 new String[]{"_id", "name", "total"},
                 null, null, null, null,
-                "_id DESC" // Orden
+                "_id DESC"
         );
 
         while (cursor.moveToNext()) {

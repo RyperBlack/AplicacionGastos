@@ -47,9 +47,7 @@ public class AccountFragment extends Fragment {
                             accountViewModel.deleteAccount(account);
                             Toast.makeText(requireContext(), R.string.account_deleted, Toast.LENGTH_SHORT).show();
                         })
-                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                            dialog.dismiss();
-                        })
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
                         .show();
             }
 
@@ -62,9 +60,7 @@ public class AccountFragment extends Fragment {
 
         binding.fabAddAccount.setOnClickListener(v -> navigateToCreateAccount(null));
 
-        accountViewModel.getAccounts().observe(getViewLifecycleOwner(), accounts -> {
-            adapter.setAccounts(accounts);
-        });
+        accountViewModel.getAccounts().observe(getViewLifecycleOwner(), accounts -> adapter.setAccounts(accounts));
 
         return binding.getRoot();
     }
