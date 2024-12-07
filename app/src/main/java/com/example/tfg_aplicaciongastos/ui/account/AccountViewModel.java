@@ -1,6 +1,8 @@
 package com.example.tfg_aplicaciongastos.ui.account;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -10,6 +12,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
+import com.example.tfg_aplicaciongastos.ddbb.classes.Exchanges;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
 
 import java.util.ArrayList;
@@ -20,20 +23,24 @@ public class AccountViewModel extends AndroidViewModel {
     private final AccountDBHelper dbHelper;
     private final MutableLiveData<List<Account>> accountsLiveData;
     private final MutableLiveData<Account> selectedAccountLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Exchanges>> exchangesLiveData = new MutableLiveData<>();
+    private final SharedPreferences sharedPreferences;
 
     public AccountViewModel(@NonNull Application application) {
         super(application);
         dbHelper = new AccountDBHelper(application);
+        sharedPreferences = application.getSharedPreferences("account_preferences", Context.MODE_PRIVATE);
         accountsLiveData = new MutableLiveData<>();
         loadAccounts();
     }
 
-    public LiveData<Account> getSelectedAccount() {
-        return selectedAccountLiveData;
+    public int getSelectedAccountId() {
+        return sharedPreferences.getInt("selected_account_id", -1);
     }
 
     public void setSelectedAccount(Account account) {
         selectedAccountLiveData.setValue(account);
+        sharedPreferences.edit().putInt("selected_account_id", account.getId()).apply();
     }
 
     public void loadAccounts() {
@@ -57,6 +64,10 @@ public class AccountViewModel extends AndroidViewModel {
         db.close();
 
         accountsLiveData.postValue(accounts);
+
+        if (getSelectedAccountId() == -1 && !accounts.isEmpty()) {
+            setSelectedAccount(accounts.get(0));
+        }
     }
 
     public LiveData<List<Account>> getAccounts() {

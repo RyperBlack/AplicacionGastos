@@ -41,4 +41,9 @@
     <string name="category_updated">Categoria actualizada</string>
     <string name="category_created">Categoria creada</string>
     <string name="category_name">Nombre Categoria</string>
+    <string name="gastosingresos">Gastos/Ingresos\n</string>
+    <string name="cannot_delete_selected_account">No puedes eliminar la cuenta seleccionada</string>
+    <string name="Exchange_name">Nombre gasto/Ingreso\n</string>
+    <string name="Add_exchange">Añadir Gasto/Ingreso</string>
+    <string name="select_date">Selecciona fecha\n</string>
 </resources>

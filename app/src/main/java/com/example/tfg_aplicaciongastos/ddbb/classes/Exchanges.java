@@ -2,17 +2,20 @@ package com.example.tfg_aplicaciongastos.ddbb.classes;
 
 public class Exchanges {
 
-    int id, accountId, categoryId;
-    String name, type;
+    int id, accountId, categoryId, type;
+    String name, date, categoryName, categoryColor;
     double quantity;
 
-    public Exchanges(int id, int accountId, String name, int categoryId, String type, double quantity) {
+    public Exchanges(int id, int accountId, String name, int categoryId, int type, double quantity, String date, String categoryName, String categoryColor) {
         this.id = id;
         this.accountId = accountId;
         this.name = name;
         this.categoryId = categoryId;
         this.type = type;
         this.quantity = quantity;
+        this.date = date;
+        this.categoryName = categoryName;
+        this.categoryColor = categoryColor;
     }
 
     public int getId() {
@@ -23,6 +26,14 @@ public class Exchanges {
         this.id = id;
     }
 
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
     public int getCategoryId() {
         return categoryId;
     }
@@ -31,12 +42,12 @@ public class Exchanges {
         this.categoryId = categoryId;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public int getType() {
+        return type;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -47,12 +58,28 @@ public class Exchanges {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getDate() {
+        return date;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getCategoryColor() {
+        return categoryColor;
+    }
+
+    public void setCategoryColor(String categoryColor) {
+        this.categoryColor = categoryColor;
     }
 
     public double getQuantity() {

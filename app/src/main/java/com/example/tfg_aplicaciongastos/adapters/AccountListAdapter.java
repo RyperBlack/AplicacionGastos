@@ -1,6 +1,7 @@
 package com.example.tfg_aplicaciongastos.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfg_aplicaciongastos.R;
@@ -27,7 +29,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
 
     private final List<Account> accountList = new ArrayList<>();
     private final OnAccountInteractionListener interactionListener;
-    private int selectedPosition = RecyclerView.NO_POSITION; // Track the selected position
+    private int selectedAccountId = RecyclerView.NO_POSITION;
 
     public AccountListAdapter(OnAccountInteractionListener interactionListener) {
         this.interactionListener = interactionListener;
@@ -46,27 +48,52 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     /**
      * @noinspection ClassEscapesDefinedScope
      */
-    @SuppressLint("DefaultLocale")
+    @SuppressLint({"DefaultLocale", "NotifyDataSetChanged"})
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Account account = accountList.get(position);
         holder.binding.accountName.setText(account.getName());
         holder.binding.accountTotal.setText(String.format("%.2f €", account.getTotal()));
 
-        holder.binding.selectedTick.setVisibility(holder.getAdapterPosition() == selectedPosition ? View.VISIBLE : View.INVISIBLE);
+        boolean isSelected = account.getId() == selectedAccountId; // Comprueba si esta cuenta está seleccionada
+        holder.binding.selectedTick.setVisibility(isSelected ? View.VISIBLE : View.INVISIBLE);
 
         holder.binding.getRoot().setOnClickListener(v -> {
-            int oldPosition = selectedPosition;
-            selectedPosition = holder.getAdapterPosition();
-            notifyItemChanged(oldPosition);
-            notifyItemChanged(selectedPosition);
-            interactionListener.onAccountSelected(account);
+            if (selectedAccountId != account.getId()) {
+                selectedAccountId = account.getId(); // Actualiza el ID de la cuenta seleccionada
+                interactionListener.onAccountSelected(account);
+                notifyDataSetChanged(); // Refresca el adaptador
+            }
         });
 
         holder.binding.getRoot().setOnLongClickListener(v -> {
             showPopupMenu(v, account);
             return true;
         });
+    }
+
+    private boolean handleMenuItemClick(Context context, MenuItem item, Account account) {
+        if (item == null) return false;
+
+        if (item.getItemId() == R.id.menu_delete && account.getId() == selectedAccountId) {
+            new AlertDialog.Builder(context)
+                    .setTitle(R.string.confirm_delete_category_title)
+                    .setMessage(R.string.cannot_delete_selected_account)
+                    .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
+                    .show();
+            return false;
+        }
+
+        Map<Integer, Runnable> menuActions = new HashMap<>();
+        menuActions.put(R.id.menu_edit, () -> interactionListener.onEditAccount(account));
+        menuActions.put(R.id.menu_delete, () -> interactionListener.onDeleteAccount(account));
+
+        Runnable action = menuActions.get(item.getItemId());
+        if (action != null) {
+            action.run();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -90,24 +117,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
             e.printStackTrace();
         }
         popupMenu.setGravity(Gravity.END);
-        popupMenu.setOnMenuItemClickListener(item -> handleMenuItemClick(item, account));
+        popupMenu.setOnMenuItemClickListener(item -> handleMenuItemClick(view.getContext(), item, account));
 
         popupMenu.show();
-    }
-
-    private boolean handleMenuItemClick(MenuItem item, Account account) {
-        if (item == null) return false;
-
-        Map<Integer, Runnable> menuActions = new HashMap<>();
-        menuActions.put(R.id.menu_edit, () -> interactionListener.onEditAccount(account));
-        menuActions.put(R.id.menu_delete, () -> interactionListener.onDeleteAccount(account));
-
-        Runnable action = menuActions.get(item.getItemId());
-        if (action != null) {
-            action.run();
-            return true;
-        }
-        return false;
     }
 
     @Override
@@ -119,6 +131,12 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     public void setAccounts(List<Account> accounts) {
         accountList.clear();
         accountList.addAll(accounts);
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setSelectedAccountId(int accountId) {
+        this.selectedAccountId = accountId;
         notifyDataSetChanged();
     }
 

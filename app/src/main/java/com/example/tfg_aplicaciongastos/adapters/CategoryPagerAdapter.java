@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.tfg_aplicaciongastos.ui.category.CategoryListFragment;
+import com.example.tfg_aplicaciongastos.ui.category.CategoryFragment;
 
 public class CategoryPagerAdapter extends FragmentStateAdapter {
 
@@ -15,7 +15,7 @@ public class CategoryPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return CategoryListFragment.newInstance(position);
+        return CategoryFragment.newInstance(position);
     }
 
     @Override

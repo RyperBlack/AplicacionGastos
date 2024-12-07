@@ -11,6 +11,7 @@ public class AccountContract {
         public static final String NAME = "Name";
         public static final String TYPE = "Type";
         public static final String QUANTITY = "Quantity";
+        public static final String DATE = "Date";
     }
 
     public static abstract class accountEntry implements BaseColumns {

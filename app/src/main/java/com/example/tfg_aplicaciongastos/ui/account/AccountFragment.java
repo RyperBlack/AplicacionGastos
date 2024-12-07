@@ -20,6 +20,8 @@ import com.example.tfg_aplicaciongastos.adapters.AccountListAdapter;
 import com.example.tfg_aplicaciongastos.databinding.FragmentAccountBinding;
 import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
 
+import java.util.Objects;
+
 public class AccountFragment extends Fragment {
 
     private FragmentAccountBinding binding;
@@ -81,7 +83,14 @@ public class AccountFragment extends Fragment {
     public void onResume() {
         super.onResume();
         accountViewModel.loadAccounts();
-    }
+        int selectedAccountId = accountViewModel.getSelectedAccountId();
+            for (Account account : Objects.requireNonNull(accountViewModel.getAccounts().getValue())) {
+                if (account.getId() == selectedAccountId) {
+                    adapter.setSelectedAccountId(account.getId());
+                    break;
+                }
+            }
+        }
 
     @Override
     public void onDestroyView() {

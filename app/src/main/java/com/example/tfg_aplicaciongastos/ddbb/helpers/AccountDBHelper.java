@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
 import com.example.tfg_aplicaciongastos.ddbb.classes.Category;
+import com.example.tfg_aplicaciongastos.ddbb.classes.Exchanges;
 
 public class AccountDBHelper extends SQLiteOpenHelper {
 
@@ -26,7 +27,8 @@ public class AccountDBHelper extends SQLiteOpenHelper {
                     exchangesEntry.CATEGORY_ID + "INTEGER, " +
                     exchangesEntry.NAME + " TEXT NOT NULL, " +
                     exchangesEntry.TYPE + " TEXT NOT NULL, " +
-                    exchangesEntry.QUANTITY + " TEXT NOT NULL " +
+                    exchangesEntry.QUANTITY + " TEXT NOT NULL, " +
+                    exchangesEntry.DATE + " TEXT NOT NULL " +
                     ");";
 
     private final static String SQL_CREATE_TABLE_ACCOUNTS =
@@ -60,6 +62,10 @@ public class AccountDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_EXCHANGES);
     }
 
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
+
     public void insertAccount(Account account) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -76,10 +82,6 @@ public class AccountDBHelper extends SQLiteOpenHelper {
         values.put("total", account.getTotal());
         db.update("accounts", values, "_id = ?", new String[]{String.valueOf(account.getId())});
         db.close();
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
     public void insertCategory(Category category) {
@@ -101,5 +103,33 @@ public class AccountDBHelper extends SQLiteOpenHelper {
         values.put("name", category.getName());
         values.put("hexcode", category.getHexCode());
         db.update("category", values, "_id = ?", new String[]{String.valueOf(category.getId())});
+    }
+
+    public void insertExchange(Exchanges exchange) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("account", exchange.getAccountId());
+        values.put("name", exchange.getName());
+        values.put("category", exchange.getCategoryId());
+        values.put("type", exchange.getType());
+        values.put("quantity", exchange.getQuantity());
+        values.put("date", exchange.getDate());
+
+        db.insert("exchanges", null, values);
+    }
+
+    public void updateExchange(Exchanges exchange) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("account", exchange.getAccountId());
+        values.put("name", exchange.getName());
+        values.put("category", exchange.getCategoryId());
+        values.put("type", exchange.getType());
+        values.put("quantity", exchange.getQuantity());
+        values.put("date", exchange.getDate());
+
+        db.update("exchanges", values, "_id = ?", new String[]{String.valueOf(exchange.getId())});
     }
 }

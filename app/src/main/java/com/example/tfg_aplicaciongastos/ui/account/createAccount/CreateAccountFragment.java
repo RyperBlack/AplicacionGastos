@@ -22,7 +22,7 @@ import java.util.concurrent.Executor;
 /**
  * @noinspection ALL
  */
-public class CreateAccount extends Fragment {
+public class CreateAccountFragment extends Fragment {
 
     private ActivityCreateAccountBinding binding;
     private CreateAccountViewModel mViewModel;

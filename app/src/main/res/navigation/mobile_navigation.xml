@@ -7,13 +7,18 @@
 
     <fragment
         android:id="@+id/nav_start"
-        android:name="com.example.tfg_aplicaciongastos.ui.start.StartFragment"
-        android:label="@string/menu_start"
-        tools:layout="@layout/fragment_start" />
+        android:name="com.example.tfg_aplicaciongastos.ui.exchanges.ExchangesTabsFragment"
+        android:label="@string/gastosingresos"
+        tools:layout="@layout/fragment_exchanges">
+
+        <action
+            android:id="@+id/action_exchangesFragment_to_createExchangeFragment"
+            app:destination="@id/nav_createExchange" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_category"
-        android:name="com.example.tfg_aplicaciongastos.ui.category.CategoryFragment"
+        android:name="com.example.tfg_aplicaciongastos.ui.category.CategoryTabsFragment"
         android:label="@string/menu_category"
         tools:layout="@layout/fragment_category">
 
@@ -46,7 +51,13 @@
 
     <fragment
         android:id="@+id/nav_createAccount"
-        android:name="com.example.tfg_aplicaciongastos.ui.account.createAccount.CreateAccount"
+        android:name="com.example.tfg_aplicaciongastos.ui.account.createAccount.CreateAccountFragment"
         android:label="@string/add_Account"
         tools:layout="@layout/activity_create_account" />
+
+    <fragment
+        android:id="@+id/nav_createExchange"
+        android:name="com.example.tfg_aplicaciongastos.ui.exchanges.createExchange.CreateExchangeFragment"
+        android:label="@string/Add_exchange"
+        tools:layout="@layout/create_exchange_fragment" />
 </navigation>

@@ -2,6 +2,7 @@ package com.example.tfg_aplicaciongastos.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             try {
                 int color = Color.parseColor(category.getHexCode());
-                categoryHolder.binding.colorImageView.setBackgroundColor(color);
+                categoryHolder.binding.colorImageView.setBackgroundTintList(ColorStateList.valueOf(color));
             } catch (IllegalArgumentException e) {
                 categoryHolder.binding.colorImageView.setBackgroundColor(Color.GRAY);
             }

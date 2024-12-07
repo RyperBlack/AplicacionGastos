@@ -18,7 +18,7 @@ import com.example.tfg_aplicaciongastos.adapters.CategoryListAdapter;
 import com.example.tfg_aplicaciongastos.databinding.FragmentCategoryBinding;
 import com.example.tfg_aplicaciongastos.ddbb.classes.Category;
 
-public class CategoryTabsFragment extends Fragment {
+public class CategoryFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";
     private int position;
@@ -26,8 +26,8 @@ public class CategoryTabsFragment extends Fragment {
     private CategoryViewModel categoryViewModel;
     private CategoryListAdapter adapter;
 
-    public static CategoryListFragment newInstance(int position) {
-        CategoryListFragment fragment = new CategoryListFragment();
+    public static CategoryFragment newInstance(int position) {
+        CategoryFragment fragment = new CategoryFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_POSITION, position);
         fragment.setArguments(args);

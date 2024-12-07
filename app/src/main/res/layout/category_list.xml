@@ -6,29 +6,28 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
+        android:layout_width="155dp"
+        android:layout_height="192dp"
         android:layout_margin="10dp"
-        android:backgroundTint="@color/design_default_color_background"
-        app:cardBackgroundColor="@color/cardview_dark_background"
+        android:backgroundTint="@color/cardview_dark_background"
         app:cardCornerRadius="15dp"
         app:cardElevation="5dp"
         app:cardPreventCornerOverlap="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
 
             <ImageView
                 android:id="@+id/colorImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="10dp"
-                android:contentDescription="@string/Color"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:background="@drawable/circle_background"
+                android:contentDescription="@string/Color" />
 
             <TextView
                 android:id="@+id/NameText"

@@ -14,7 +14,7 @@ import com.example.tfg_aplicaciongastos.adapters.CategoryPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class CategoryFragment extends Fragment {
+public class CategoryTabsFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
