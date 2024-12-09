@@ -1,5 +1,6 @@
 package com.example.tfg_aplicaciongastos.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -30,11 +31,13 @@ public class CategorySelectListAdapter extends RecyclerView.Adapter<CategorySele
         this.listener = listener;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setCategories(List<Category> categories) {
         this.categories = categories;
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setSelectedCategoryId(int selectedCategoryId) {
         this.selectedCategoryId = selectedCategoryId;
         notifyDataSetChanged();
@@ -44,10 +47,11 @@ public class CategorySelectListAdapter extends RecyclerView.Adapter<CategorySele
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.category_select_list, parent, false); // Usa el layout correcto
+                .inflate(R.layout.category_select_list, parent, false);
         return new CategoryViewHolder(view);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category category = categories.get(position);

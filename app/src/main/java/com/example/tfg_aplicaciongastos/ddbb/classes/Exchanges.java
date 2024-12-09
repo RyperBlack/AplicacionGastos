@@ -30,16 +30,8 @@ public class Exchanges {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
-
     public int getCategoryId() {
         return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     public int getType() {
@@ -62,31 +54,16 @@ public class Exchanges {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getCategoryName() {
         return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
     }
 
     public String getCategoryColor() {
         return categoryColor;
     }
 
-    public void setCategoryColor(String categoryColor) {
-        this.categoryColor = categoryColor;
-    }
-
     public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
 }

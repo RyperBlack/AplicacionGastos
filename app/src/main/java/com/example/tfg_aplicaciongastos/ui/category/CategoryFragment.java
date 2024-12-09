@@ -1,5 +1,6 @@
 package com.example.tfg_aplicaciongastos.ui.category;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +12,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.tfg_aplicaciongastos.R;
 import com.example.tfg_aplicaciongastos.adapters.CategoryListAdapter;
+import com.example.tfg_aplicaciongastos.adapters.GridAutofitLayoutManager;
+import com.example.tfg_aplicaciongastos.adapters.GridSpacingItemDecoration;
 import com.example.tfg_aplicaciongastos.databinding.FragmentCategoryBinding;
 import com.example.tfg_aplicaciongastos.ddbb.classes.Category;
 
+/** @noinspection ALL*/
 public class CategoryFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";
@@ -60,8 +63,10 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-        binding.CategoryRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        binding.CategoryRecycler.setLayoutManager(new GridAutofitLayoutManager(getContext(), getResources().getDimensionPixelSize(R.dimen.item_size)));
+        binding.CategoryRecycler.addItemDecoration(new GridSpacingItemDecoration(Util.dpToPx(getContext(), 2),true));
         binding.CategoryRecycler.setAdapter(adapter);
+
 
         if (position == 0) {
             categoryViewModel.loadCategoryList(1);
@@ -72,6 +77,13 @@ public class CategoryFragment extends Fragment {
         categoryViewModel.getCategories().observe(getViewLifecycleOwner(), categories -> adapter.setCategories(categories));
 
         return binding.getRoot();
+    }
+    public static class Util {
+
+        public static int dpToPx(Context context, int dp) {
+            float density = context.getResources().getDisplayMetrics().density;
+            return (int) (dp * density + 0.5f);
+        }
     }
 
     private void navigateToCreateCategory(@Nullable Category category) {

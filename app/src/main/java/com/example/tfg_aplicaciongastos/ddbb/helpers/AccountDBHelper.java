@@ -6,6 +6,7 @@ import static com.example.tfg_aplicaciongastos.ddbb.helpers.AccountContract.exch
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -117,10 +118,23 @@ public class AccountDBHelper extends SQLiteOpenHelper {
         values.put("date", exchange.getDate());
 
         db.insert("exchanges", null, values);
+
+        updateAccountTotal(exchange.getAccountId(), exchange.getQuantity(), exchange.getType());
     }
 
     public void updateExchange(Exchanges exchange) {
         SQLiteDatabase db = getWritableDatabase();
+
+        double previousQuantity;
+        Cursor cursor = db.query("exchanges", new String[]{"quantity", "type"},
+                "_id = ?", new String[]{String.valueOf(exchange.getId())}, null, null, null);
+        if (cursor.moveToFirst()) {
+            previousQuantity = cursor.getDouble(0);
+            int previousType = cursor.getInt(1);
+
+            updateAccountTotal(exchange.getAccountId(), -previousQuantity, previousType);
+        }
+        cursor.close();
 
         ContentValues values = new ContentValues();
         values.put("account", exchange.getAccountId());
@@ -131,5 +145,29 @@ public class AccountDBHelper extends SQLiteOpenHelper {
         values.put("date", exchange.getDate());
 
         db.update("exchanges", values, "_id = ?", new String[]{String.valueOf(exchange.getId())});
+        updateAccountTotal(exchange.getAccountId(), exchange.getQuantity(), exchange.getType());
     }
+
+    private void updateAccountTotal(int accountId, double quantity, int type) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        double currentTotal = 0;
+        Cursor cursor = db.query("accounts", new String[]{"total"},
+                "_id = ?", new String[]{String.valueOf(accountId)}, null, null, null);
+        if (cursor.moveToFirst()) {
+            currentTotal = cursor.getDouble(0);
+        }
+        cursor.close();
+
+        if (type == 1) {
+            currentTotal -= quantity;
+        } else if (type == 0) {
+            currentTotal += quantity;
+        }
+
+        ContentValues totalUpdate = new ContentValues();
+        totalUpdate.put("total", currentTotal);
+        db.update("accounts", totalUpdate, "_id = ?", new String[]{String.valueOf(accountId)});
+    }
+
 }

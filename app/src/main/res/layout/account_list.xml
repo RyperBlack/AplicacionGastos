@@ -15,38 +15,34 @@
         android:padding="16dp"
         android:weightSum="10">
 
-        <!-- Icono de selección (Tick) -->
         <ImageView
             android:id="@+id/selectedTick"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_menu_camera"
+            android:contentDescription="@string/selected_tick"
+            android:src="@drawable/tick"
             android:visibility="gone" />
 
-        <!-- Nombre de la cuenta -->
         <TextView
             android:id="@+id/accountName"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="7"
             android:gravity="center_vertical"
-            android:text="Nombre de la cuenta"
-            android:textColor="@color/cardview_light_background"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- Total de la cuenta -->
         <TextView
             android:id="@+id/accountTotal"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center_vertical|end"
-            android:text="Total: 0.00 €"
-            android:textColor="@color/cardview_light_background"
+            android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

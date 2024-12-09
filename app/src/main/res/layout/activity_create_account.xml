@@ -6,31 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".ui.account.createAccount.CreateAccountFragment">
 
-    <EditText
-        android:id="@+id/accountNameEditText"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/accountName"
+        android:layout_width="194dp"
         android:layout_height="wrap_content"
-        android:hint="@string/account_name"
+        android:layout_marginTop="252dp"
+        android:gravity="center"
+        android:text="@string/name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/accountTotalEditText"
-        android:layout_width="0dp"
+        android:id="@+id/accountNameEditText"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="@string/total"
-        android:inputType="numberDecimal"
+        android:layout_marginTop="10dp"
+        android:autofillHints="name"
+        android:hint="@string/account_name"
+        android:inputType="text"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/accountNameEditText" />
+        app:layout_constraintTop_toBottomOf="@id/accountName" />
 
-    <Button
-        android:id="@+id/createAccountButton"
+    <TextView
+        android:id="@+id/accountTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crear"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/total"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/accountTotalEditText"
+        app:layout_constraintHorizontal_bias="0.59"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountNameEditText" />
+
+    <EditText
+        android:id="@+id/accountTotalEditText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="25dp"
+        android:hint="@string/total"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountTotal"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <ImageButton
+        android:id="@+id/createAccountButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/tick"
+        android:contentDescription="@string/crear_cuenta"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="@color/helecho_verde"
+        android:scaleType="fitCenter"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/accountTotalEditText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

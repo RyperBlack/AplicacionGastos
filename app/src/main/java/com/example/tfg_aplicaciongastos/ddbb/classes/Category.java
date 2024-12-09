@@ -32,10 +32,6 @@ public class Category {
         return hexCode;
     }
 
-    public void setHexCode(String hexCode) {
-        this.hexCode = hexCode;
-    }
-
     public String getName() {
         return name;
     }

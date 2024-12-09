@@ -8,58 +8,85 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name" />
+            android:text="@string/name"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/categoryNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/category_name"
-            android:minHeight="48dp" />
-
+            android:minHeight="48dp"
+            android:backgroundTint="@color/black"
+            android:layout_marginBottom="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_gravity="center_horizontal"/>
 
         <RadioGroup
             android:id="@+id/radioButtonGroupCategoryType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:gravity="center">
 
             <RadioButton
                 android:id="@+id/radioButtonGastos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/gastos" />
+                android:text="@string/gastos"
+                android:textColor="@color/black"
+                android:layout_marginEnd="24dp" />
 
             <RadioButton
                 android:id="@+id/radioButtonIngresos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ingresos" />
+                android:text="@string/ingresos"
+                android:textColor="@color/black" />
         </RadioGroup>
 
         <Button
             android:id="@+id/colorPickerButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Color" />
+            android:text="@string/Color"
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_button"/>
 
         <View
             android:id="@+id/colorDisplayView"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginTop="16dp"
-            android:background="#FFFFFF" />
+            android:background="@drawable/circle_background"
+            android:layout_gravity="center_horizontal"
+            android:elevation="4dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/createCategoryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Add" />
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/tick"
+            android:contentDescription="@string/Add"
+            android:background="@drawable/circle_background"
+            android:backgroundTint="@color/helecho_verde"
+            android:scaleType="fitCenter"
+            android:elevation="4dp"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.example.tfg_aplicaciongastos.ui.category.createCategory;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -54,7 +55,8 @@ public class CreateCategoryFragment extends Fragment {
             selectedHexCode = args.getString("hexcode", "#FFFFFF");
 
             binding.categoryNameEditText.setText(categoryName);
-            binding.colorDisplayView.setBackgroundColor(Color.parseColor(selectedHexCode));
+            int color = Color.parseColor(selectedHexCode);
+            binding.colorDisplayView.setBackgroundTintList(ColorStateList.valueOf(color));
         }
 
         binding.radioButtonGroupCategoryType.setOnCheckedChangeListener((group, checkedId) -> isExpenseType = checkedId == R.id.radioButtonGastos);
@@ -64,7 +66,7 @@ public class CreateCategoryFragment extends Fragment {
                 .setDefaultColor(R.color.white)
                 .setColorListener((color, colorHex) -> {
                     selectedHexCode = colorHex;
-                    binding.colorDisplayView.setBackgroundColor(color);
+                    binding.colorDisplayView.setBackgroundTintList(ColorStateList.valueOf(color));
                 })
                 .show());
 

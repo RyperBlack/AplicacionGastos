@@ -28,12 +28,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_graph"
-        android:name="com.example.tfg_aplicaciongastos.ui.graph.GraphFragment"
-        android:label="@string/menu_graphs"
-        tools:layout="@layout/fragment_graph" />
-
-    <fragment
         android:id="@+id/nav_account"
         android:name="com.example.tfg_aplicaciongastos.ui.account.AccountFragment"
         android:label="@string/menu_account"

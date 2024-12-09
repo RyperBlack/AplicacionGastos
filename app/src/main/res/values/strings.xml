@@ -46,4 +46,17 @@
     <string name="Exchange_name">Nombre gasto/Ingreso\n</string>
     <string name="Add_exchange">Añadir Gasto/Ingreso</string>
     <string name="select_date">Selecciona fecha\n</string>
+    <string name="confirm_delete_exchange_title">Eliminar Gasto/Ingreso</string>
+    <string name="confirm_delete_exchange_message">¿Estas seguro que quiere eliminar este Gasto/Ingreso?</string>
+    <string name="day">Hoy</string>
+    <string name="week">Semana\n</string>
+    <string name="month">Mes\n</string>
+    <string name="year">Año\n</string>
+    <string name="categories">Categorias</string>
+    <string name="period">Periodo</string>
+    <string name="types">Tipos</string>
+    <string name="crear_cuenta">Crear cuenta</string>
+    <string name="select_category">Selecciona una categoria</string>
+    <string name="quantity_no_valid">Cantidad inválida.</string>
+    <string name="selected_tick">selectedTick</string>
 </resources>

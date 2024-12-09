@@ -2,7 +2,6 @@ package com.example.tfg_aplicaciongastos.ui.exchanges.createExchange;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.tfg_aplicaciongastos.ddbb.classes.Category;
 import com.example.tfg_aplicaciongastos.ddbb.classes.Exchanges;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
 

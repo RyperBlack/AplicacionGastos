@@ -12,7 +12,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.tfg_aplicaciongastos.ddbb.classes.Account;
-import com.example.tfg_aplicaciongastos.ddbb.classes.Exchanges;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
 
 import java.util.ArrayList;
@@ -22,8 +21,6 @@ public class AccountViewModel extends AndroidViewModel {
 
     private final AccountDBHelper dbHelper;
     private final MutableLiveData<List<Account>> accountsLiveData;
-    private final MutableLiveData<Account> selectedAccountLiveData = new MutableLiveData<>();
-    private final MutableLiveData<List<Exchanges>> exchangesLiveData = new MutableLiveData<>();
     private final SharedPreferences sharedPreferences;
 
     public AccountViewModel(@NonNull Application application) {
@@ -39,7 +36,6 @@ public class AccountViewModel extends AndroidViewModel {
     }
 
     public void setSelectedAccount(Account account) {
-        selectedAccountLiveData.setValue(account);
         sharedPreferences.edit().putInt("selected_account_id", account.getId()).apply();
     }
 
@@ -47,7 +43,7 @@ public class AccountViewModel extends AndroidViewModel {
         List<Account> accounts = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(
-                "accounts", // Tabla
+                "accounts",
                 new String[]{"_id", "name", "total"},
                 null, null, null, null,
                 "_id DESC"
@@ -62,23 +58,29 @@ public class AccountViewModel extends AndroidViewModel {
         }
         cursor.close();
         db.close();
-
         accountsLiveData.postValue(accounts);
-
-        if (getSelectedAccountId() == -1 && !accounts.isEmpty()) {
-            setSelectedAccount(accounts.get(0));
-        }
     }
 
     public LiveData<List<Account>> getAccounts() {
         return accountsLiveData;
     }
 
+    public double getTotalOfAllAccounts() {
+        List<Account> accounts = accountsLiveData.getValue();
+        if (accounts == null || accounts.isEmpty()) {
+            return 0.0;
+        }
+        double total = 0.0;
+        for (Account account : accounts) {
+            total += account.getTotal();
+        }
+        return total;
+    }
+
     public void deleteAccount(Account account) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete("accounts", "_id = ?", new String[]{String.valueOf(account.getId())});
         db.close();
-
         loadAccounts();
     }
 }

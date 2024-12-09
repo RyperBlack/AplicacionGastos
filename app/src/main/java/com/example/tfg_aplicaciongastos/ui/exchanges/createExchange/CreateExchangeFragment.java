@@ -26,19 +26,24 @@ import com.example.tfg_aplicaciongastos.ddbb.classes.Category;
 import com.example.tfg_aplicaciongastos.ddbb.classes.Exchanges;
 import com.example.tfg_aplicaciongastos.ddbb.helpers.AccountDBHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 
+/** @noinspection ALL*/
 public class CreateExchangeFragment extends Fragment {
 
     private CreateExchangeFragmentBinding binding;
     private CreateExchangeViewModel mViewModel;
 
-    private int editingExchangeId = -1; // Si estamos editando
-    private int categoryId = -1;       // Categoría seleccionada
-    private int isExpenseType = -1;    // 1 = Gastos, 0 = Ingresos
+    private int editingExchangeId = -1;
+    private int categoryId = -1;
+    private int isExpenseType = -1;
 
     private CategorySelectListAdapter adapter;
 
@@ -52,17 +57,35 @@ public class CreateExchangeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Configuración inicial
         AccountDBHelper dbHelper = new AccountDBHelper(requireContext());
         Executor executor = Runnable::run;
         CreateExchangeViewModelFactory factory = new CreateExchangeViewModelFactory(executor, dbHelper);
         mViewModel = new ViewModelProvider(this, factory).get(CreateExchangeViewModel.class);
 
+        Bundle args = getArguments();
+        if (args != null) {
+            editingExchangeId = args.getInt("exchange_id", -1);
+            String exchangeName = args.getString("exchange_name", "");
+            categoryId = args.getInt("category_id", -1);
+            isExpenseType = args.getInt("type", -1);
+            double quantity = args.getDouble("quantity", 0.0);
+            String date = args.getString("date", "");
+
+            binding.exchangeNameEditText.setText(exchangeName);
+            binding.totalAmountEditText.setText(String.valueOf(quantity));
+            binding.exchangeDateEditText.setText(date);
+
+            if (isExpenseType == 0) {
+                binding.radioButtonIngresos.setChecked(true);
+            } else if (isExpenseType == 1) {
+                binding.radioButtonGastos.setChecked(true);
+            }
+        }
+
         adapter = new CategorySelectListAdapter(category -> categoryId = category.getId());
         binding.CategoryRecycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.CategoryRecycler.setAdapter(adapter);
 
-        // Configurar acciones
         binding.datePickerButton.setOnClickListener(v -> openDatePicker());
         binding.radioButtonGastos.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -78,7 +101,7 @@ public class CreateExchangeFragment extends Fragment {
             }
         });
 
-        binding.createExchangeButton.setOnClickListener(v -> saveExchange(dbHelper));
+        binding.createExchangeButton.setOnClickListener(v -> saveExchange());
 
         loadCategories(dbHelper);
     }
@@ -123,7 +146,7 @@ public class CreateExchangeFragment extends Fragment {
         adapter.setSelectedCategoryId(categoryId);
     }
 
-    private void saveExchange(AccountDBHelper dbHelper) {
+    private void saveExchange() {
         String name = binding.exchangeNameEditText.getText().toString().trim();
         String date = binding.exchangeDateEditText.getText().toString().trim();
         String totalAmountString = binding.totalAmountEditText.getText().toString().trim();
@@ -137,9 +160,21 @@ public class CreateExchangeFragment extends Fragment {
         try {
             totalAmount = Double.parseDouble(totalAmountString);
         } catch (NumberFormatException e) {
-            Toast.makeText(requireContext(), "Cantidad inválida.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.quantity_no_valid, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date formattedDate;
+        try {
+            formattedDate = inputDateFormat.parse(date);
+        } catch (ParseException e) {
+            Toast.makeText(requireContext(), "Fecha inválida. El formato debe ser yyyy-MM-dd.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        assert formattedDate != null;
+        String formattedDateString = outputDateFormat.format(formattedDate);
 
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("account_preferences", Context.MODE_PRIVATE);
         int accountId = sharedPreferences.getInt("selected_account_id", -1);
@@ -150,7 +185,7 @@ public class CreateExchangeFragment extends Fragment {
         }
 
         Exchanges exchange = new Exchanges(
-                editingExchangeId, accountId, name, categoryId, isExpenseType, totalAmount, date, null, null
+                editingExchangeId, accountId, name, categoryId, isExpenseType, totalAmount, formattedDateString, null, null
         );
 
         if (editingExchangeId == -1) {

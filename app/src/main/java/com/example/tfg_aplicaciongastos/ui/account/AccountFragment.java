@@ -1,5 +1,6 @@
 package com.example.tfg_aplicaciongastos.ui.account;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ public class AccountFragment extends Fragment {
     private AccountViewModel accountViewModel;
     private AccountListAdapter adapter;
 
+    @SuppressLint("DefaultLocale")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAccountBinding.inflate(inflater, container, false);
@@ -62,7 +64,12 @@ public class AccountFragment extends Fragment {
 
         binding.fabAddAccount.setOnClickListener(v -> navigateToCreateAccount(null));
 
-        accountViewModel.getAccounts().observe(getViewLifecycleOwner(), accounts -> adapter.setAccounts(accounts));
+        accountViewModel.getAccounts().observe(getViewLifecycleOwner(), accounts -> {
+            adapter.setAccounts(accounts);
+
+            double accountTotal = accountViewModel.getTotalOfAllAccounts();
+            binding.TotalTextBox.setText(String.format("%.2f €", accountTotal));
+        });
 
         return binding.getRoot();
     }

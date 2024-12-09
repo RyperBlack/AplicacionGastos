@@ -55,14 +55,14 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         holder.binding.accountName.setText(account.getName());
         holder.binding.accountTotal.setText(String.format("%.2f €", account.getTotal()));
 
-        boolean isSelected = account.getId() == selectedAccountId; // Comprueba si esta cuenta está seleccionada
+        boolean isSelected = account.getId() == selectedAccountId;
         holder.binding.selectedTick.setVisibility(isSelected ? View.VISIBLE : View.INVISIBLE);
 
         holder.binding.getRoot().setOnClickListener(v -> {
             if (selectedAccountId != account.getId()) {
-                selectedAccountId = account.getId(); // Actualiza el ID de la cuenta seleccionada
+                selectedAccountId = account.getId();
                 interactionListener.onAccountSelected(account);
-                notifyDataSetChanged(); // Refresca el adaptador
+                notifyDataSetChanged();
             }
         });
 
