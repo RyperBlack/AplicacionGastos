@@ -52,6 +52,7 @@ public class CategoryViewModel extends AndroidViewModel {
     }
 
 
+
     public LiveData<List<Category>> getCategories() {
         return categoriesLiveData;
     }
